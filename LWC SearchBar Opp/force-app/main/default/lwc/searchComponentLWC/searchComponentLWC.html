@@ -1,0 +1,66 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 06-14-2023
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+  <lightning-card
+      title="Opportunities"
+      icon-name="custom:custom63"
+  >
+      <div class="slds-var-m-around_medium">
+          <lightning-input
+              type="search"
+              onchange={changehandle}
+              class="slds-var-m-bottom_small"
+              label="Search"
+              value={searchKey}
+              
+          ></lightning-input>
+          
+          <template if:true={contacts}>
+              <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-m-top_small">
+                <thead>
+                   <tr class="slds-line-height_reset">
+                      <th class="" scope="col">
+                         <div class="slds-truncate" title="Name">Name</div>
+                      </th>
+                      <th class="" scope="col">
+                         <div class="slds-truncate" title="Amount">Amount</div>
+                      </th>
+                      <th class="" scope="col">
+                         <div class="slds-truncate" title="Close Date">Close Date</div>
+                      </th>
+                   </tr>
+                </thead>
+                <tbody>  
+                  <template for:each={contacts} for:item="contact">
+ 
+                      <tr class="slds-hint-parent" key={contact.Id}>
+                         <td>
+                            <div class="slds-truncate"><a data-record-id={contact.Id} onclick={viewRecord}>{contact.Name}</a>
+                            </div>
+                         </td>
+                         <td>
+                            <div class="slds-truncate">{contact.Amount}</div>
+                         </td>
+                         <td>
+                            <div class="slds-truncate">
+                               <lightning-formatted-phone value={contact.CloseDate} ></lightning-formatted-phone>
+                            </div>
+                         </td>
+                      </tr>
+                    </template>
+
+                </tbody>
+                
+                </table>
+          </template>
+          <template if:false={contacts}>
+            <p>No Opportunities found !</p>
+          </template>
+      </div>
+  </lightning-card>
+</template>
